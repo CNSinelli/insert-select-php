@@ -1,3 +1,6 @@
+<?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/php1/contorle/pessoaControle.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,27 +21,24 @@
             </thead>
             <tbody>
                 <?php
-                $registros = [
-                    ['João', '123456789', '987654321'],
-                    ['Maria', '987654321', '123456789'],
-                    ['Pedro', '555555555', '999999999']
-                    
-                ];
-
-                foreach ($registros as $registro) {
-                    echo '<tr>';
-                    echo '<td>' . $registro[0] . '</td>';
-                    echo '<td>' . $registro[1] . '</td>';
-                    echo '<td>' . $registro[2] . '</td>';
-                    echo '<td>';
-                    echo '<button class="btn btn-primary">Editar</button>';
-                    echo '<button class="btn btn-danger">Excluir</button>';
-                    echo '</td>';
-                    echo '</tr>';
-                }
+                $pessoaController = new PessoaController();
+                //pessoa recebe todos os registros do pessoaControle pelo método listar
+                $pessoas = $pessoaController->listar();
+                //foreach como um laço de repetição garante que pessoa vai receber todos os registros
+                foreach($pessoas as $pessoa){
+                //laço engloba os 3 echo pra que seja imprimida a informação sempre que ele receber outro registro
                 ?>
+                 <tr>
+                    
+                    <th><?php echo $pessoa['nome']; ?></th>
+                    <th><?php echo $pessoa['telefone']; ?></th>
+                    <th><?php echo $pessoa['celular']; ?></th>
+
+                    <th><a href="editar.php?id=<?php echo $pessoa['id']; ?>">editar</th>
+                </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </body>
-</html>
+</html>                       
